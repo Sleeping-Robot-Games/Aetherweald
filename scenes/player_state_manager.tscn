@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://brcx06245gld5"]
+
+[ext_resource type="Script" path="res://scripts/state_manager.gd" id="1_pyren"]
+[ext_resource type="Script" path="res://scripts/states/player_states/idle.gd" id="2_jiomu"]
+[ext_resource type="Script" path="res://scripts/states/player_states/run.gd" id="3_cjb0i"]
+
+[node name="PlayerStateManager" type="Node"]
+script = ExtResource("1_pyren")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="."]
+script = ExtResource("2_jiomu")
+run_node = NodePath("../Run")
+animation_name = "idle"
+
+[node name="Run" type="Node" parent="."]
+script = ExtResource("3_cjb0i")
+idle_node = NodePath("../Idle")
+run_node = NodePath(".")
+animation_name = "run"
