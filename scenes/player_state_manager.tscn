@@ -1,20 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://brcx06245gld5"]
+[gd_scene load_steps=13 format=3 uid="uid://brcx06245gld5"]
 
 [ext_resource type="Script" path="res://scripts/state_manager.gd" id="1_pyren"]
 [ext_resource type="Script" path="res://scripts/states/player_states/idle.gd" id="2_jiomu"]
+[ext_resource type="Script" path="res://scripts/states/player_states/hit.gd" id="3_8kuop"]
 [ext_resource type="Script" path="res://scripts/states/player_states/run.gd" id="3_cjb0i"]
+[ext_resource type="Script" path="res://scripts/states/player_states/death.gd" id="4_jq50m"]
+[ext_resource type="Script" path="res://scripts/states/player_states/roll.gd" id="5_42iay"]
+[ext_resource type="Script" path="res://scripts/states/player_states/sword_heavy1.gd" id="7_rjh44"]
+[ext_resource type="Script" path="res://scripts/states/player_states/sword_heavy2.gd" id="8_fqxo8"]
+[ext_resource type="Script" path="res://scripts/states/player_states/sword_light1.gd" id="9_8eoo7"]
+[ext_resource type="Script" path="res://scripts/states/player_states/sword_light2.gd" id="10_64kdw"]
+[ext_resource type="Script" path="res://scripts/states/player_states/sword_light3.gd" id="11_vqy33"]
+[ext_resource type="Script" path="res://scripts/states/player_states/walk.gd" id="12_0r7eh"]
 
 [node name="PlayerStateManager" type="Node"]
 script = ExtResource("1_pyren")
 starting_state = NodePath("Idle")
+
+[node name="Death" type="Node" parent="."]
+script = ExtResource("4_jq50m")
+
+[node name="Hit" type="Node" parent="."]
+script = ExtResource("3_8kuop")
 
 [node name="Idle" type="Node" parent="."]
 script = ExtResource("2_jiomu")
 run_node = NodePath("../Run")
 animation_name = "idle"
 
+[node name="Roll" type="Node" parent="."]
+script = ExtResource("5_42iay")
+
 [node name="Run" type="Node" parent="."]
 script = ExtResource("3_cjb0i")
 idle_node = NodePath("../Idle")
 run_node = NodePath(".")
 animation_name = "run"
+
+[node name="SwordHeavy1" type="Node" parent="."]
+script = ExtResource("7_rjh44")
+
+[node name="SwordHeavy2" type="Node" parent="."]
+script = ExtResource("8_fqxo8")
+
+[node name="SwordLight1" type="Node" parent="."]
+script = ExtResource("9_8eoo7")
+
+[node name="SwordLight2" type="Node" parent="."]
+script = ExtResource("10_64kdw")
+
+[node name="SwordLight3" type="Node" parent="."]
+script = ExtResource("11_vqy33")
+
+[node name="Walk" type="Node" parent="."]
+script = ExtResource("12_0r7eh")

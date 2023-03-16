@@ -15,20 +15,12 @@ func enter() -> void:
 func exit() -> void:
 	pass
 
-func get_dir(vec2: Vector2) -> String:
-	print("get_dir: " + str(vec2))
-	if vec2.y < 0:
-		print("Up")
-		return 'Up'
-	elif vec2.y > 0:
-		print("Down")
-		return 'Down'
-	elif vec2.x < 0:
-		print("Left")
-		return 'Left'
+func get_dir(input: Vector2) -> String:
+	var dominant_axis = 'x' if abs(input.x) >= abs(input.y) else 'y'
+	if dominant_axis == 'x':
+		return 'Left' if input.x <= 0 else 'Right'
 	else:
-		print("Right")
-		return 'Right'
+		return 'Up' if input.y <= 0 else 'Down'
 
 func input(_event: InputEvent) -> BaseState:
 	return null
