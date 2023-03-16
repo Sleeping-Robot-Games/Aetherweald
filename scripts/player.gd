@@ -9,5 +9,4 @@ func _ready():
 	$PlayerStateManager.init(self)
 
 func play_animation(anim_name):
-	print("playing: " + anim_name)
 	$AnimationPlayer.play(anim_name)

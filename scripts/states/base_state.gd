@@ -7,7 +7,6 @@ extends Node
 var actor: CharacterBody2D
 
 func enter() -> void:
-	print("entering: " + animation_name)
 	actor.direction_string = get_dir(actor.direction)
 	if 'Player' in actor.name:
 		actor.play_animation(animation_name + actor.direction_string)
@@ -15,12 +14,12 @@ func enter() -> void:
 func exit() -> void:
 	pass
 
-func get_dir(input: Vector2) -> String:
-	var dominant_axis = 'x' if abs(input.x) >= abs(input.y) else 'y'
+func get_dir(vector: Vector2) -> String:
+	var dominant_axis = 'x' if abs(vector.x) >= abs(vector.y) else 'y'
 	if dominant_axis == 'x':
-		return 'Left' if input.x <= 0 else 'Right'
+		return 'Left' if vector.x <= 0 else 'Right'
 	else:
-		return 'Up' if input.y <= 0 else 'Down'
+		return 'Up' if vector.y <= 0 else 'Down'
 
 func input(_event: InputEvent) -> BaseState:
 	return null

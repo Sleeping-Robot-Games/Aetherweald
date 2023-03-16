@@ -1,1 +1,35 @@
 extends BaseState
+
+@export var idle_node: NodePath
+@export var run_node: NodePath
+@onready var idle_state: BaseState = get_node(idle_node)
+@onready var run_state: BaseState = get_node(run_node)
+
+var anim_player: AnimationPlayer
+var is_done: bool = false
+var roll_dir: Vector2 = Vector2.ZERO
+var speed: float = 250.0
+
+func enter() -> void:
+	super.enter()
+	is_done = false
+	roll_dir = actor.direction
+
+func connect_player() -> void:
+	anim_player.animation_finished.connect(_on_animation_finished)
+
+func _on_animation_finished(anim_name: String) -> void:
+	is_done = true
+
+func physics_process(_delta: float) -> BaseState:
+	if is_done:
+		var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
+		if input_dir == Vector2.ZERO:
+			return idle_state
+		else:
+			actor.direction = input_dir
+			return run_state
+	else:
+		actor.velocity = roll_dir * speed
+		actor.move_and_slide()
+	return null

@@ -1,17 +1,23 @@
 extends BaseState
 
 @export var idle_node: NodePath
+@export var roll_node: NodePath
 @export var run_node: NodePath
 @onready var idle_state: BaseState = get_node(idle_node)
+@onready var roll_state: BaseState = get_node(roll_node)
 @onready var run_state: BaseState = get_node(run_node)
 
-var max_speed: float = 150.0
-var accel: float = 40.0
+var speed: float = 150.0
+
+func input(event: InputEvent) -> BaseState:
+	if event.is_action_pressed('roll'):
+		return roll_state
+	return null
 
 func physics_process(_delta: float) -> BaseState:
 	var prev_direction = actor.direction
-	var input_dir: Vector2 = Input.get_vector("left", "right", "up", "down")
-	actor.velocity = input_dir * max_speed
+	var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
+	actor.velocity = input_dir * speed
 	actor.move_and_slide()
 	
 	if input_dir == Vector2.ZERO:

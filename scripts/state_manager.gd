@@ -17,6 +17,9 @@ func change_state(new_state: BaseState) -> void:
 func init(actor) -> void:
 	for state in get_children():
 		state.actor = actor
+		if state.name == 'Roll':
+			state.anim_player = get_parent().get_node('AnimationPlayer')
+			state.connect_player()
 
 	# Initialize with a default state of idle
 	change_state(get_node(starting_state))

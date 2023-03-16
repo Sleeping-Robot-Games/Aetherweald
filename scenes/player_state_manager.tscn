@@ -19,9 +19,11 @@ starting_state = NodePath("Idle")
 
 [node name="Death" type="Node" parent="."]
 script = ExtResource("4_jq50m")
+animation_name = "death"
 
 [node name="Hit" type="Node" parent="."]
 script = ExtResource("3_8kuop")
+animation_name = "hit"
 
 [node name="Idle" type="Node" parent="."]
 script = ExtResource("2_jiomu")
@@ -30,27 +32,37 @@ animation_name = "idle"
 
 [node name="Roll" type="Node" parent="."]
 script = ExtResource("5_42iay")
+idle_node = NodePath("../Idle")
+run_node = NodePath("../Run")
+animation_name = "roll"
 
 [node name="Run" type="Node" parent="."]
 script = ExtResource("3_cjb0i")
 idle_node = NodePath("../Idle")
+roll_node = NodePath("../Roll")
 run_node = NodePath(".")
 animation_name = "run"
 
 [node name="SwordHeavy1" type="Node" parent="."]
 script = ExtResource("7_rjh44")
+animation_name = "sword_heavy1"
 
 [node name="SwordHeavy2" type="Node" parent="."]
 script = ExtResource("8_fqxo8")
+animation_name = "sword_heavy2"
 
 [node name="SwordLight1" type="Node" parent="."]
 script = ExtResource("9_8eoo7")
+animation_name = "sword_light1"
 
 [node name="SwordLight2" type="Node" parent="."]
 script = ExtResource("10_64kdw")
+animation_name = "sword_light2"
 
 [node name="SwordLight3" type="Node" parent="."]
 script = ExtResource("11_vqy33")
+animation_name = "sword_light3"
 
 [node name="Walk" type="Node" parent="."]
 script = ExtResource("12_0r7eh")
+animation_name = "walk"
