@@ -9,6 +9,7 @@ extends BaseState
 
 var is_done: bool = false
 var is_combo: bool = false
+var combo_window: float = 0.9
 var attack_dir: Vector2 = Vector2.ZERO
 var speed: float = 25.0
 
@@ -19,7 +20,8 @@ func enter() -> void:
 	attack_dir = actor.direction
 
 func input(event: InputEvent) -> BaseState:
-	if event.is_action_pressed('heavy_attack'):
+	if event.is_action_pressed('heavy_attack') \
+	and animation_player.current_animation_position <= combo_window:
 		is_combo = true
 	return null
 
@@ -27,7 +29,6 @@ func connect_anim_player() -> void:
 	animation_player.animation_finished.connect(_on_animation_finished)
 
 func _on_animation_finished(anim_name: String) -> void:
-	print('anim_name: ' + anim_name)
 	is_done = true
 
 func physics_process(_delta: float) -> BaseState:
