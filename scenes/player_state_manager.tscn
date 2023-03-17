@@ -79,6 +79,7 @@ animation_name = "sword_light2"
 [node name="SwordLight3" type="Node" parent="."]
 script = ExtResource("11_vqy33")
 idle_node = NodePath("../Idle")
+roll_node = NodePath("../Roll")
 run_node = NodePath("../Run")
 animation_name = "sword_light3"
 

@@ -18,7 +18,7 @@ func init(actor) -> void:
 	var anim_player = get_parent().get_node('AnimationPlayer')
 	for state in get_children():
 		state.actor = actor
-		state.animation_player = get_parent().get_node('AnimationPlayer')
+		state.animation_player = anim_player
 		if state.has_method('connect_anim_player'):
 			state.connect_anim_player()
 

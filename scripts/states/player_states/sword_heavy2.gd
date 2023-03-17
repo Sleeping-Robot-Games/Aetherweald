@@ -17,7 +17,7 @@ func enter() -> void:
 func connect_anim_player() -> void:
 	animation_player.animation_finished.connect(_on_animation_finished)
 
-func _on_animation_finished(anim_name: String) -> void:
+func _on_animation_finished(_anim_name: String) -> void:
 	is_done = true
 
 func physics_process(_delta: float) -> BaseState:
