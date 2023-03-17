@@ -9,6 +9,7 @@ extends BaseState
 
 var is_done: bool = false
 var is_rolling: bool = false
+var move_window: float = 0.2
 var speed: float = 25.0
 var attack_dir: Vector2 = Vector2.ZERO
 
@@ -30,6 +31,8 @@ func _on_animation_finished(_anim_name: String) -> void:
 	is_done = true
 
 func physics_process(_delta: float) -> BaseState:
+	var anim_seconds = animation_player.current_animation_position
+	
 	# update direction if holding input and exiting state
 	if is_rolling or is_done:
 		input_dir = get_input_dir()
@@ -44,7 +47,7 @@ func physics_process(_delta: float) -> BaseState:
 		else:
 			actor.direction = input_dir
 			return run_state
-	else:
+	elif anim_seconds <= move_window:
 		actor.velocity = attack_dir * speed
 		actor.move_and_slide()
 	return null

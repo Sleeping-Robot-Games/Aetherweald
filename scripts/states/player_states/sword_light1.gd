@@ -13,6 +13,7 @@ var is_done: bool = false
 var is_combo: bool = false
 var is_rolling: bool = false
 var combo_window: float = 0.3
+var move_window: float = 0.1
 var speed: float = 25.0
 var attack_dir: Vector2 = Vector2.ZERO
 
@@ -38,25 +39,27 @@ func _on_animation_finished(_anim_name: String) -> void:
 	is_done = true
 
 func physics_process(_delta: float) -> BaseState:
-	var is_donezo = is_done \
-		or (is_combo and animation_player.current_animation_position >= combo_window)
+	var anim_seconds = animation_player.current_animation_position
+	if is_combo and anim_seconds >= combo_window:
+		is_done = true
 	
 	# update direction if holding input and exiting state
-	if is_rolling or is_donezo:
+	if is_rolling or is_done:
 		input_dir = get_input_dir()
 		if input_dir != Vector2.ZERO:
 			actor.direction = input_dir
 	
 	if is_rolling:
 		return roll_state
-	elif is_donezo:
+	elif is_done:
 		if is_combo:
 			return sword_light2_state
 		elif input_dir == Vector2.ZERO:
 			return idle_state
 		else:
 			return run_state
-	else:
+	elif anim_seconds <= move_window:
 		actor.velocity = attack_dir * speed
 		actor.move_and_slide()
+	
 	return null
