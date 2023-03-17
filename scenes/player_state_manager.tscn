@@ -41,26 +41,41 @@ script = ExtResource("3_cjb0i")
 idle_node = NodePath("../Idle")
 roll_node = NodePath("../Roll")
 run_node = NodePath(".")
+sword_heavy1_node = NodePath("../SwordHeavy1")
+sword_light1_node = NodePath("../SwordLight1")
 animation_name = "run"
 
 [node name="SwordHeavy1" type="Node" parent="."]
 script = ExtResource("7_rjh44")
+idle_node = NodePath("../Idle")
+run_node = NodePath("../Run")
+sword_heavy2_node = NodePath("../SwordHeavy2")
 animation_name = "sword_heavy1"
 
 [node name="SwordHeavy2" type="Node" parent="."]
 script = ExtResource("8_fqxo8")
+idle_node = NodePath("../Idle")
+run_node = NodePath("../Run")
 animation_name = "sword_heavy2"
 
 [node name="SwordLight1" type="Node" parent="."]
 script = ExtResource("9_8eoo7")
+idle_node = NodePath("../Idle")
+run_node = NodePath("../Run")
+sword_light2_node = NodePath("../SwordLight2")
 animation_name = "sword_light1"
 
 [node name="SwordLight2" type="Node" parent="."]
 script = ExtResource("10_64kdw")
+idle_node = NodePath("../Idle")
+run_node = NodePath("../Run")
+sword_light3_node = NodePath("../SwordLight3")
 animation_name = "sword_light2"
 
 [node name="SwordLight3" type="Node" parent="."]
 script = ExtResource("11_vqy33")
+idle_node = NodePath("../Idle")
+run_node = NodePath("../Run")
 animation_name = "sword_light3"
 
 [node name="Walk" type="Node" parent="."]

@@ -15,11 +15,12 @@ func change_state(new_state: BaseState) -> void:
 # owned by the parent that they should be able to take control of
 # and set a default state
 func init(actor) -> void:
+	var anim_player = get_parent().get_node('AnimationPlayer')
 	for state in get_children():
 		state.actor = actor
-		if state.name == 'Roll':
-			state.anim_player = get_parent().get_node('AnimationPlayer')
-			state.connect_player()
+		state.animation_player = get_parent().get_node('AnimationPlayer')
+		if state.has_method('connect_anim_player'):
+			state.connect_anim_player()
 
 	# Initialize with a default state of idle
 	change_state(get_node(starting_state))

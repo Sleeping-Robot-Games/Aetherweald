@@ -5,7 +5,6 @@ extends BaseState
 @onready var idle_state: BaseState = get_node(idle_node)
 @onready var run_state: BaseState = get_node(run_node)
 
-var anim_player: AnimationPlayer
 var is_done: bool = false
 var roll_dir: Vector2 = Vector2.ZERO
 var speed: float = 250.0
@@ -15,10 +14,11 @@ func enter() -> void:
 	is_done = false
 	roll_dir = actor.direction
 
-func connect_player() -> void:
-	anim_player.animation_finished.connect(_on_animation_finished)
+func connect_anim_player() -> void:
+	animation_player.animation_finished.connect(_on_animation_finished)
 
 func _on_animation_finished(anim_name: String) -> void:
+	print('anim_name: ' + anim_name)
 	is_done = true
 
 func physics_process(_delta: float) -> BaseState:
