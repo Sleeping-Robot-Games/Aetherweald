@@ -6,6 +6,7 @@ var animation_player: AnimationPlayer
 
 # Pass in a reference to the actor's character body so that it can be used by the state
 var actor: CharacterBody2D
+var input_dir: Vector2 = Vector2.ZERO
 
 func enter() -> void:
 	actor.direction_string = get_dir(actor.direction)
@@ -21,6 +22,9 @@ func get_dir(vector: Vector2) -> String:
 		return 'left' if vector.x <= 0 else 'right'
 	else:
 		return 'up' if vector.y <= 0 else 'down'
+
+func get_input_dir() -> Vector2:
+	return Input.get_vector('left', 'right', 'up', 'down')
 
 func input(_event: InputEvent) -> BaseState:
 	return null

@@ -11,7 +11,6 @@ var is_done: bool = false
 var is_rolling: bool = false
 var speed: float = 25.0
 var attack_dir: Vector2 = Vector2.ZERO
-var input_dir: Vector2 = Vector2.ZERO
 
 func enter() -> void:
 	super.enter()
@@ -33,7 +32,7 @@ func _on_animation_finished(_anim_name: String) -> void:
 func physics_process(_delta: float) -> BaseState:
 	# update direction if holding input and exiting state
 	if is_rolling or is_done:
-		input_dir = Input.get_vector('left', 'right', 'up', 'down')
+		input_dir = get_input_dir()
 		if input_dir != Vector2.ZERO:
 			actor.direction = input_dir
 	

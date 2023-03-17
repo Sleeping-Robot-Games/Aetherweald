@@ -22,7 +22,7 @@ func _on_animation_finished(_anim_name: String) -> void:
 
 func physics_process(_delta: float) -> BaseState:
 	if is_done:
-		var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
+		input_dir = get_input_dir()
 		if input_dir == Vector2.ZERO:
 			return idle_state
 		else:

@@ -24,15 +24,15 @@ func input(event: InputEvent) -> BaseState:
 
 func physics_process(_delta: float) -> BaseState:
 	var prev_direction = actor.direction
-	var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
+	input_dir = get_input_dir()
+	if input_dir != Vector2.ZERO:
+		actor.direction = input_dir
 	actor.velocity = input_dir * speed
 	actor.move_and_slide()
 	
 	if input_dir == Vector2.ZERO:
 		return idle_state
 	elif input_dir != prev_direction:
-		actor.direction = input_dir
 		return run_state
 	
-	actor.direction = input_dir
 	return null

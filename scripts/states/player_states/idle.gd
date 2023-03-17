@@ -15,7 +15,7 @@ func input(event: InputEvent) -> BaseState:
 	return null
 
 func physics_process(_delta: float) -> BaseState:
-	var input_dir: Vector2 = Input.get_vector("left", "right", "up", "down")
+	input_dir = get_input_dir()
 	if input_dir != Vector2.ZERO:
 		return run_state
 	return null
