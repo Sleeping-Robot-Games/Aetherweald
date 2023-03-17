@@ -1,13 +1,17 @@
 extends BaseState
 
 @export var idle_node: NodePath
+@export var roll_node: NodePath
 @export var run_node: NodePath
 @onready var idle_state: BaseState = get_node(idle_node)
+@onready var roll_state: BaseState = get_node(roll_node)
 @onready var run_state: BaseState = get_node(run_node)
 
 var is_done: bool = false
-var attack_dir: Vector2 = Vector2.ZERO
+var is_rolling: bool = false
 var speed: float = 25.0
+var attack_dir: Vector2 = Vector2.ZERO
+var input_dir: Vector2 = Vector2.ZERO
 
 func enter() -> void:
 	super.enter()
@@ -21,8 +25,15 @@ func _on_animation_finished(anim_name: String) -> void:
 	is_done = true
 
 func physics_process(_delta: float) -> BaseState:
-	if is_done:
-		var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
+	# update direction if holding input and exiting state
+	if is_rolling or is_done:
+		input_dir = Input.get_vector('left', 'right', 'up', 'down')
+		if input_dir != Vector2.ZERO:
+			actor.direction = input_dir
+	
+	if is_rolling:
+		return roll_state
+	elif is_done:
 		if input_dir == Vector2.ZERO:
 			return idle_state
 		else:

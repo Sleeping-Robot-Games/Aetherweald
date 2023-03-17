@@ -63,6 +63,7 @@ animation_name = "sword_heavy2"
 [node name="SwordLight1" type="Node" parent="."]
 script = ExtResource("9_8eoo7")
 idle_node = NodePath("../Idle")
+roll_node = NodePath("../Roll")
 run_node = NodePath("../Run")
 sword_light2_node = NodePath("../SwordLight2")
 animation_name = "sword_light1"
@@ -70,6 +71,7 @@ animation_name = "sword_light1"
 [node name="SwordLight2" type="Node" parent="."]
 script = ExtResource("10_64kdw")
 idle_node = NodePath("../Idle")
+roll_node = NodePath("../Roll")
 run_node = NodePath("../Run")
 sword_light3_node = NodePath("../SwordLight3")
 animation_name = "sword_light2"
