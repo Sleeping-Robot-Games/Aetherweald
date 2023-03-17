@@ -35,7 +35,6 @@ func physics_process(_delta: float) -> BaseState:
 	if is_done:
 		var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
 		if is_combo:
-			actor.direction = input_dir
 			return sword_light3_state
 		elif input_dir == Vector2.ZERO:
 			return idle_state

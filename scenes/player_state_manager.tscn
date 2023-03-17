@@ -28,6 +28,8 @@ animation_name = "hit"
 [node name="Idle" type="Node" parent="."]
 script = ExtResource("2_jiomu")
 run_node = NodePath("../Run")
+sword_heavy1_node = NodePath("../SwordHeavy1")
+sword_light1_node = NodePath("../SwordLight1")
 animation_name = "idle"
 
 [node name="Roll" type="Node" parent="."]
