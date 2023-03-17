@@ -32,7 +32,8 @@ func _on_animation_finished(anim_name: String) -> void:
 	is_done = true
 
 func physics_process(_delta: float) -> BaseState:
-	if is_done:
+	if is_done \
+	or (is_combo and animation_player.current_animation_position >= combo_window):
 		var input_dir: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
 		if is_combo:
 			return sword_light2_state
