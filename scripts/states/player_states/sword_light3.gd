@@ -16,6 +16,7 @@ var input_dir: Vector2 = Vector2.ZERO
 func enter() -> void:
 	super.enter()
 	is_done = false
+	is_rolling = false
 	attack_dir = actor.direction
 
 func input(event: InputEvent) -> BaseState:
