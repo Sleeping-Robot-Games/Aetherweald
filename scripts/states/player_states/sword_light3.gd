@@ -10,7 +10,7 @@ extends BaseState
 var is_done: bool = false
 var is_rolling: bool = false
 var move_window: float = 0.2
-var speed: float = 25.0
+var speed: float = 50.0
 var attack_dir: Vector2 = Vector2.ZERO
 
 func enter() -> void:
