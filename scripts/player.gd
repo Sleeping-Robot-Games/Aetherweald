@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 300.0
+@export var speed: float = 400.0
 var moving: bool = false
 var direction: Vector2 = Vector2(0, -1)
 var direction_string: String = "up"

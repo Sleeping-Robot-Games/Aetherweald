@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpukplrgfg4sk"]
+[gd_scene load_steps=4 format=3 uid="uid://cpukplrgfg4sk"]
 
 [ext_resource type="PackedScene" uid="uid://blkfnc5h6inoj" path="res://scenes/player.tscn" id="1_8nq52"]
 [ext_resource type="PackedScene" uid="uid://wt6xpm4filub" path="res://scenes/slime.tscn" id="2_px41y"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7mihf"]
+vertices = PackedVector2Array(0, 0, 958, 5, 958, 543, 2, 540)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 958, 5, 958, 543, 2, 540)])
+
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_8nq52")]
-position = Vector2(353, 238)
+position = Vector2(528, 255)
 
 [node name="Slime" parent="." instance=ExtResource("2_px41y")]
-position = Vector2(116, 231)
+position = Vector2(182, 219)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_7mihf")
