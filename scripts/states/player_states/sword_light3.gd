@@ -9,8 +9,11 @@ extends BaseState
 
 var is_done: bool = false
 var is_rolling: bool = false
-var move_window: float = 0.2
-var speed: float = 50.0
+var move_window: Dictionary = {
+	'start': 0.2,
+	'end': 0.3
+}
+var speed: float = 150.0
 var attack_dir: Vector2 = Vector2.ZERO
 
 func enter() -> void:
@@ -47,7 +50,7 @@ func physics_process(_delta: float) -> BaseState:
 		else:
 			actor.direction = input_dir
 			return run_state
-	elif anim_seconds <= move_window:
+	elif anim_seconds >= move_window.start and anim_seconds <= move_window.end:
 		actor.velocity = attack_dir * speed
 		actor.move_and_slide()
 	return null
