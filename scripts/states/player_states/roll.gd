@@ -7,7 +7,7 @@ extends BaseState
 
 var is_done: bool = false
 var roll_dir: Vector2 = Vector2.ZERO
-var speed: float = 100.0
+var speed: float = 250.0
 
 func enter() -> void:
 	super.enter()

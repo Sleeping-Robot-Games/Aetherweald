@@ -13,7 +13,7 @@ var move_window: Dictionary = {
 	'start': 0.2,
 	'end': 0.3
 }
-var speed: float = 150.0
+var speed: float = 450.0
 var attack_dir: Vector2 = Vector2.ZERO
 
 func enter() -> void:
