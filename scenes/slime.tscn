@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://wt6xpm4filub"]
+[gd_scene load_steps=29 format=3 uid="uid://wt6xpm4filub"]
 
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_bun5w"]
 [ext_resource type="Texture2D" uid="uid://bpbeerdyulbr2" path="res://assets/enemies/slime.png" id="1_mesu7"]
@@ -386,7 +386,10 @@ _data = {
 radius = 245.008
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3lwc2"]
-radius = 53.0377
+radius = 88.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w1o3l"]
+radius = 20.0
 
 [node name="Slime" type="CharacterBody2D"]
 script = ExtResource("1_bun5w")
@@ -411,11 +414,11 @@ libraries = {
 [node name="ChaseArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseArea"]
+visible = false
 position = Vector2(0, 22)
 shape = SubResource("CircleShape2D_i647y")
 
 [node name="ChargeArea" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeArea"]
 position = Vector2(0, 22)
@@ -424,8 +427,18 @@ shape = SubResource("CircleShape2D_3lwc2")
 [node name="FollowTimer" type="Timer" parent="."]
 wait_time = 0.1
 
+[node name="HitArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, 24)
+shape = SubResource("CircleShape2D_w1o3l")
+
+[node name="Scan" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="ChaseArea" to="." method="_on_chase_area_body_entered"]
 [connection signal="body_exited" from="ChaseArea" to="." method="_on_chase_area_body_exited"]
 [connection signal="body_entered" from="ChargeArea" to="." method="_on_charge_area_body_entered"]
-[connection signal="body_exited" from="ChargeArea" to="." method="_on_charge_area_body_exited"]
 [connection signal="timeout" from="FollowTimer" to="." method="_on_follow_timer_timeout"]
+[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]
+[connection signal="timeout" from="Scan" to="." method="_on_scan_timeout"]

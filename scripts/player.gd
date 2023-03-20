@@ -10,3 +10,6 @@ func _ready():
 
 func play_animation(anim_name):
 	$AnimationPlayer.play(anim_name)
+
+func dmg(num):
+	print("player damaged")
