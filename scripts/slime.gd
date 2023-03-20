@@ -103,7 +103,7 @@ func _on_charge_area_body_entered(body):
 		start_charge(body)
 
 func _on_hit_area_body_entered(body):
-	if body == target:
+	if body == target and not target.rolling:
 		body.dmg(1)
 		end_chase()
 

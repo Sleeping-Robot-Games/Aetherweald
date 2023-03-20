@@ -4,6 +4,7 @@ extends CharacterBody2D
 var moving: bool = false
 var direction: Vector2 = Vector2(0, -1)
 var direction_string: String = "up"
+var rolling = false # This is really more for pseudo code right now
 
 func _ready():
 	$PlayerStateManager.init(self)
