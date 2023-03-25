@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed: float = 400.0
+var hp: int = 10
 var moving: bool = false
 var direction: Vector2 = Vector2(0, -1)
 var direction_string: String = 'up'
@@ -14,6 +15,8 @@ func play_animation(anim_name):
 
 func dmg(num):
 	print('player damaged')
+	hp = maxi(0, hp - num)
+	$HpBar.value = hp
 
 func _on_attack_area_body_entered(body):
 	if body.has_method('dmg'):

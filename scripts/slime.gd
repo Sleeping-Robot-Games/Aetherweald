@@ -3,10 +3,11 @@ extends CharacterBody2D
 @export var pat_speed: float = 200.0
 @export var chase_speed: float = 50.0
 @export var charge_speed: float = 150.0
-@export var hp: int = 10
+@export var max_hp: int = 10
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
+var hp: int
 var target: CharacterBody2D
 var facing = 'right'
 var state = 'idle'
@@ -18,7 +19,9 @@ var prev_position: Vector2
 func _ready():
 	$AnimationPlayer.play('idle_down')
 	prev_position = global_position
-
+	hp = max_hp
+	$HpBar.max_value = max_hp
+	$HpBar.value = max_hp
 
 func _physics_process(delta):
 	if state == 'idle':
@@ -100,6 +103,8 @@ func end_chase():
 
 func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
 	print('slime damaged: ' + str(num) + ', dir: ' + str(dir) + ', force: ' + str(force))
+	hp = maxi(0, hp - num)
+	$HpBar.value = hp
 	state = 'hurt'
 	target = null
 	hurt_dir = dir
