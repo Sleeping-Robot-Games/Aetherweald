@@ -392,6 +392,7 @@ radius = 88.0
 radius = 20.0
 
 [node name="Slime" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_bun5w")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -400,7 +401,6 @@ hframes = 8
 vframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-1, 24)
 shape = SubResource("CircleShape2D_jfv8d")
 
@@ -412,6 +412,8 @@ libraries = {
 }
 
 [node name="ChaseArea" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseArea"]
 visible = false
@@ -419,6 +421,8 @@ position = Vector2(0, 22)
 shape = SubResource("CircleShape2D_i647y")
 
 [node name="ChargeArea" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeArea"]
 position = Vector2(0, 22)
@@ -428,6 +432,8 @@ shape = SubResource("CircleShape2D_3lwc2")
 wait_time = 0.1
 
 [node name="HitArea" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitArea"]
 position = Vector2(0, 24)
@@ -436,9 +442,14 @@ shape = SubResource("CircleShape2D_w1o3l")
 [node name="Scan" type="Timer" parent="."]
 one_shot = true
 
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="body_entered" from="ChaseArea" to="." method="_on_chase_area_body_entered"]
 [connection signal="body_exited" from="ChaseArea" to="." method="_on_chase_area_body_exited"]
 [connection signal="body_entered" from="ChargeArea" to="." method="_on_charge_area_body_entered"]
 [connection signal="timeout" from="FollowTimer" to="." method="_on_follow_timer_timeout"]
 [connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]
 [connection signal="timeout" from="Scan" to="." method="_on_scan_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]

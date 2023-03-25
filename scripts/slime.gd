@@ -3,21 +3,31 @@ extends CharacterBody2D
 @export var pat_speed: float = 200.0
 @export var chase_speed: float = 50.0
 @export var charge_speed: float = 150.0
+@export var hp: int = 10
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
 var target: CharacterBody2D
-var facing = "Right"
-var state = "idle"
+var facing = 'right'
+var state = 'idle'
 var charge_target_pos: Vector2
+var hurt_dir: Vector2
+var hurt_knockback: float
+var prev_position: Vector2
 
 func _ready():
-	$AnimationPlayer.play("idle_down")
+	$AnimationPlayer.play('idle_down')
+	prev_position = global_position
 
 
 func _physics_process(delta):
 	if state == 'idle':
 		$AnimationPlayer.play('idle_down')
+	
+	if state == 'hurt':
+		animate_sprite(prev_position, global_position)
+		velocity = velocity.move_toward(Vector2.ZERO, hurt_knockback * delta)
+		move_and_slide()
 
 	if state == 'chase':
 		var current_agent_position: Vector2 = global_transform.origin
@@ -48,43 +58,59 @@ func _physics_process(delta):
 
 		move_and_slide()
 	
+	prev_position = global_position
+
+
 func animate_sprite(from, to):
 	# Determine which way to face enemy based on prior position
 	var dir = from.direction_to(to)
-	var dominant_axis = "x" if abs(dir.x) > abs(dir.y) else "y"
+	var dominant_axis = 'x' if abs(dir.x) > abs(dir.y) else 'y'
 	var new_facing = facing
-	if dominant_axis == "x":
-		new_facing = "right" if dir.x > 0 else "left"
+	if dominant_axis == 'x':
+		new_facing = 'right' if dir.x > 0 else 'left'
 	else:
-		new_facing = "down" if dir.y > 0 else "up"
+		new_facing = 'down' if dir.y > 0 else 'up'
 		
 	# Animate enemy in appropriate direction
 	if facing != new_facing:
 		facing = new_facing
 		if state == 'charge':
-			$AnimationPlayer.play("charge_" + facing)
+			$AnimationPlayer.play('charge_' + facing)
+		elif state == 'hurt':
+			$AnimationPlayer.play('hurt_' + facing)
 		else:
-			$AnimationPlayer.play("walk_" + facing)
+			$AnimationPlayer.play('walk_' + facing)
 
 func start_chase(body):
 	target = body
-	state = "chase"
+	state = 'chase'
 	$FollowTimer.start()
 
 func start_charge(body):
-	state = "charge"
+	state = 'charge'
 	charge_target_pos = body.global_position
 
 
 func end_chase():
-	state = "idle"
+	state = 'idle'
 	target = null
 	$FollowTimer.stop()
 	$Scan.start()
 
 
+func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
+	print('slime damaged: ' + str(num) + ', dir: ' + str(dir) + ', force: ' + str(force))
+	state = 'hurt'
+	target = null
+	hurt_dir = dir
+	hurt_knockback = force
+	velocity = hurt_dir * hurt_knockback	
+	$FollowTimer.stop()
+	$Scan.stop()
+	$HurtTimer.start()
+
 func _on_chase_area_body_entered(body):
-	if body.name == "Player":
+	if body.name == 'Player':
 		start_chase(body)
 
 
@@ -103,7 +129,7 @@ func _on_charge_area_body_entered(body):
 		start_charge(body)
 
 func _on_hit_area_body_entered(body):
-	if body == target and not target.rolling:
+	if body == target and not target.rolling and not state == 'hurt':
 		body.dmg(1)
 		end_chase()
 
@@ -112,10 +138,12 @@ func _on_scan_timeout():
 	var charge_bodies = $ChargeArea.get_overlapping_bodies()
 	
 	for body in charge_bodies:
-		if body.name == "Player":
+		if body.name == 'Player':
 			return start_charge(body)
 
 	for body in chase_bodies:
-		if body.name == "Player":
+		if body.name == 'Player':
 			return start_chase(body)
-	
+
+func _on_hurt_timer_timeout():
+	end_chase()
