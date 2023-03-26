@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://wt6xpm4filub"]
+[gd_scene load_steps=36 format=3 uid="uid://wt6xpm4filub"]
 
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_bun5w"]
 [ext_resource type="Texture2D" uid="uid://bpbeerdyulbr2" path="res://assets/enemies/slime.png" id="1_mesu7"]
+[ext_resource type="Texture2D" uid="uid://blvvs75pguvg" path="res://assets/enemies/exclamation.png" id="2_1yicl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jfv8d"]
 radius = 14.0
@@ -357,6 +358,78 @@ tracks/0/keys = {
 "values": [9, 10, 11]
 }
 
+[sub_resource type="Animation" id="Animation_8ncfi"]
+resource_name = "charge_windup_down"
+length = 0.05
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_kg1mq"]
+resource_name = "charge_windup_left"
+length = 0.05
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [13]
+}
+
+[sub_resource type="Animation" id="Animation_6ofje"]
+resource_name = "charge_windup_right"
+length = 0.05
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+
+[sub_resource type="Animation" id="Animation_83ulh"]
+resource_name = "charge_windup_up"
+length = 0.05
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [19]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0rrp4"]
 _data = {
 "RESET": SubResource("Animation_xiqgo"),
@@ -364,6 +437,10 @@ _data = {
 "charge_left": SubResource("Animation_64mg5"),
 "charge_right": SubResource("Animation_o27hm"),
 "charge_up": SubResource("Animation_totrg"),
+"charge_windup_down": SubResource("Animation_8ncfi"),
+"charge_windup_left": SubResource("Animation_kg1mq"),
+"charge_windup_right": SubResource("Animation_6ofje"),
+"charge_windup_up": SubResource("Animation_83ulh"),
 "death_down": SubResource("Animation_tswwq"),
 "death_left": SubResource("Animation_ehbcf"),
 "death_right": SubResource("Animation_v1i0f"),
@@ -401,6 +478,12 @@ bg_color = Color(1, 0, 0, 1)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_bun5w")
+
+[node name="Exclamation" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_1yicl")
+offset = Vector2(0, -40)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_mesu7")
@@ -455,9 +538,9 @@ one_shot = true
 
 [node name="HpBar" type="ProgressBar" parent="."]
 offset_left = 13.0
-offset_top = -26.0
+offset_top = -7.0
 offset_right = 17.0
-offset_bottom = 1.0
+offset_bottom = 20.0
 rotation = 1.5708
 theme_override_styles/background = SubResource("StyleBoxFlat_lkem4")
 theme_override_styles/fill = SubResource("StyleBoxFlat_5wv1i")
@@ -468,6 +551,14 @@ rounded = true
 fill_mode = 3
 show_percentage = false
 
+[node name="ChargeWindupTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="ExclamationTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="ChaseArea" to="." method="_on_chase_area_body_entered"]
 [connection signal="body_exited" from="ChaseArea" to="." method="_on_chase_area_body_exited"]
 [connection signal="body_entered" from="ChargeArea" to="." method="_on_charge_area_body_entered"]
@@ -475,3 +566,5 @@ show_percentage = false
 [connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]
 [connection signal="timeout" from="Scan" to="." method="_on_scan_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
+[connection signal="timeout" from="ChargeWindupTimer" to="." method="_on_charge_windup_timer_timeout"]
+[connection signal="timeout" from="ExclamationTimer" to="." method="_on_exclamation_timer_timeout"]

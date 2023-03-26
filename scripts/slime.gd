@@ -39,14 +39,17 @@ func _physics_process(delta):
 
 		animate_sprite(current_agent_position, next_path_position)
 		
-		var new_velocity: Vector2 = next_path_position - current_agent_position
-		new_velocity = new_velocity.normalized()
-		new_velocity = new_velocity * chase_speed
-
-		set_velocity(new_velocity)
-
+		velocity = (next_path_position - current_agent_position).normalized()
+		velocity *= chase_speed
 		move_and_slide()
 		
+	if state == 'charge_windup':
+		if $Exclamation.visible:
+			$AnimationPlayer.play('idle_down')
+		else:
+			$Sprite.modulate = Color(1.0, 1.0, 0.0, 1.0)
+			$AnimationPlayer.play('charge_windup_' + facing)
+	
 	if state == 'charge':
 		var target_dir = (charge_target_pos - global_position).normalized()
 		var velocity_dir = velocity.normalized()
@@ -89,11 +92,19 @@ func start_chase(body):
 	state = 'chase'
 	$FollowTimer.start()
 
-func start_charge(body):
-	state = 'charge'
-	$Sprite.modulate = Color(1.0, 0.0, 0.0, 1.0)
+func charge_windup(body):
+	state = 'charge_windup'
 	var charge_dir = global_position.direction_to(body.global_position)
 	charge_target_pos = global_position + charge_dir * charge_distance
+	# show exclamation briefly before actual windup begins
+	$Exclamation.visible = true
+	$ExclamationTimer.start()
+	# charge windup timer's duration accounts for pre-windup exclamation time
+	$ChargeWindupTimer.start()
+
+func start_charge():
+	state = 'charge'
+	$Sprite.modulate = Color(1.0, 0.0, 0.0, 1.0)
 
 func end_chase():
 	$Sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
@@ -128,8 +139,8 @@ func _on_follow_timer_timeout():
 		navigation_agent.target_position = target.global_position
 
 func _on_charge_area_body_entered(body):
-	if body == target:
-		start_charge(body)
+	if body == target and not 'charge' in state:
+		charge_windup(body)
 
 func _on_hit_area_body_entered(body):
 	if state == 'charge' and body == target and not target.is_invulnerable and not \
@@ -141,8 +152,8 @@ func _on_scan_timeout():
 	var charge_bodies = $ChargeArea.get_overlapping_bodies()
 	
 	for body in charge_bodies:
-		if body.name == 'Player':
-			return start_charge(body)
+		if body.name == 'Player' and not 'charge' in state:
+			return charge_windup(body)
 
 	for body in chase_bodies:
 		if body.name == 'Player':
@@ -150,3 +161,9 @@ func _on_scan_timeout():
 
 func _on_hurt_timer_timeout():
 	end_chase()
+
+func _on_charge_windup_timer_timeout():
+	start_charge()
+
+func _on_exclamation_timer_timeout():
+	$Exclamation.visible = false
