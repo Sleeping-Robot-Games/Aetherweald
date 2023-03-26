@@ -17,12 +17,17 @@ var hurt_dir: Vector2
 var hurt_knockback: float
 var prev_position: Vector2
 
+const YELLOW = Color(1.0, 1.0, 0.0, 1.0)
+const RED = Color(1.0, 0.0, 0.0, 1.0)
+
 func _ready():
 	$AnimationPlayer.play('idle_down')
 	prev_position = global_position
 	hp = max_hp
 	$HpBar.max_value = max_hp
 	$HpBar.value = max_hp
+	# make shader unique
+	$Sprite.material = $Sprite.material.duplicate()
 
 func _physics_process(delta):
 	if state == 'idle':
@@ -92,7 +97,8 @@ func start_chase(body):
 
 func charge_windup(body):
 	state = 'charge_windup'
-	$Sprite.modulate = Color(1.0, 1.0, 0.0, 1.0)
+	$Sprite.material.set_shader_parameter('tint', YELLOW)
+	$Sprite.material.set_shader_parameter('enabled', true)
 	var charge_dir = global_position.direction_to(body.global_position)
 	charge_target_pos = global_position + charge_dir * charge_distance
 	$ChargeWindupTimer.start()
@@ -100,10 +106,10 @@ func charge_windup(body):
 func start_charge():
 	state = 'charge'
 	$Exclamation.visible = true
-	$Sprite.modulate = Color(1.0, 0.0, 0.0, 1.0)
+	$Sprite.material.set_shader_parameter('tint', RED)
 
 func end_chase():
-	$Sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	$Sprite.material.set_shader_parameter('enabled', false)
 	state = 'idle'
 	target = null
 	$FollowTimer.stop()

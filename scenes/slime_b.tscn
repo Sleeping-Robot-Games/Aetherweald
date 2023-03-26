@@ -1,8 +1,14 @@
-[gd_scene load_steps=36 format=3 uid="uid://b15qrcv8ors5b"]
+[gd_scene load_steps=38 format=3 uid="uid://b0bji067o1lu5"]
 
 [ext_resource type="Script" path="res://scripts/slime_b.gd" id="1_b6fv7"]
 [ext_resource type="Texture2D" uid="uid://blvvs75pguvg" path="res://assets/enemies/exclamation.png" id="2_lc0b8"]
+[ext_resource type="Shader" path="res://resources/shaders/tint.gdshader" id="3_mj4yw"]
 [ext_resource type="Texture2D" uid="uid://bpbeerdyulbr2" path="res://assets/enemies/slime.png" id="3_yuwc0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w8gtt"]
+shader = ExtResource("3_mj4yw")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jfv8d"]
 radius = 14.0
@@ -486,6 +492,7 @@ texture = ExtResource("2_lc0b8")
 offset = Vector2(0, -40)
 
 [node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_w8gtt")
 texture = ExtResource("3_yuwc0")
 hframes = 8
 vframes = 5
