@@ -13,6 +13,10 @@ func enter() -> void:
 	super.enter()
 	is_done = false
 	roll_dir = actor.direction
+	actor.get_node('CollisionShape2D').disabled = true
+
+func exit() -> void:
+	actor.get_node('CollisionShape2D').disabled = false
 
 func connect_anim_player() -> void:
 	animation_player.animation_finished.connect(_on_animation_finished)
