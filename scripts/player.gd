@@ -22,6 +22,10 @@ func _on_attack_area_body_entered(body):
 	if body.has_method('dmg'):
 		var anim: String = $AnimationPlayer.current_animation
 		var damage: int = 1 if 'light' in anim else 3
-		var force: float = 0.0 if 'light' in anim else 400.0
+		var force: float = 0.0
+		if 'light3' in anim:
+			force = 300.0
+		elif 'heavy' in anim:
+			force = 400.0
 		var dir: Vector2 = global_position.direction_to(body.global_position).normalized()
 		body.dmg(damage, dir, force)
