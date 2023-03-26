@@ -399,6 +399,7 @@ bg_color = Color(1, 0, 0, 1)
 
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_bun5w")
 
 [node name="Sprite" type="Sprite2D" parent="."]

@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var pat_speed: float = 200.0
 @export var chase_speed: float = 50.0
 @export var charge_speed: float = 150.0
+@export var charge_distance: float = 300.0
 @export var max_hp: int = 10
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
@@ -47,18 +48,17 @@ func _physics_process(delta):
 		move_and_slide()
 		
 	if state == 'charge':
-		if global_position.distance_to(charge_target_pos) < 10:
-			# Slime reached charge location without hitting player
-			end_chase()
-			
-		animate_sprite(global_position, charge_target_pos)
+		var target_dir = (charge_target_pos - global_position).normalized()
+		var velocity_dir = velocity.normalized()
 		
-		# Move to where the player was when the charge started
-		var direction: Vector2 = global_position.direction_to(charge_target_pos)
-		var new_velocity = direction * charge_speed
-
-		set_velocity(new_velocity)
-
+		# end charge if close enough to target or if overshot target
+		if velocity.distance_to(charge_target_pos) < 10 or \
+		target_dir.dot(velocity_dir) < 0:
+			end_chase()
+		
+		# otherwise keep charging
+		animate_sprite(prev_position, global_position)
+		velocity = target_dir * charge_speed
 		move_and_slide()
 	
 	prev_position = global_position
@@ -91,15 +91,16 @@ func start_chase(body):
 
 func start_charge(body):
 	state = 'charge'
-	charge_target_pos = body.global_position
-
+	$Sprite.modulate = Color(1.0, 0.0, 0.0, 1.0)
+	var charge_dir = global_position.direction_to(body.global_position)
+	charge_target_pos = global_position + charge_dir * charge_distance
 
 func end_chase():
+	$Sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	state = 'idle'
 	target = null
 	$FollowTimer.stop()
 	$Scan.start()
-
 
 func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
 	print('slime damaged: ' + str(num) + ', dir: ' + str(dir) + ', force: ' + str(force))
@@ -109,7 +110,7 @@ func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
 	target = null
 	hurt_dir = dir
 	hurt_knockback = force
-	velocity = hurt_dir * hurt_knockback	
+	velocity = hurt_dir * hurt_knockback
 	$FollowTimer.stop()
 	$Scan.stop()
 	$HurtTimer.start()
@@ -118,25 +119,22 @@ func _on_chase_area_body_entered(body):
 	if body.name == 'Player':
 		start_chase(body)
 
-
 func _on_chase_area_body_exited(body):
 	if target == body:
 		end_chase()
 
-
 func _on_follow_timer_timeout():
 	if target:
 		navigation_agent.target_position = target.global_position
-
 
 func _on_charge_area_body_entered(body):
 	if body == target:
 		start_charge(body)
 
 func _on_hit_area_body_entered(body):
-	if body == target and not target.rolling and not state == 'hurt':
+	if state == 'charge' and body == target and not target.is_invulnerable and not \
+	'roll' in target.get_node('AnimationPlayer').current_animation:
 		body.dmg(1)
-		end_chase()
 
 func _on_scan_timeout():
 	var chase_bodies = $ChaseArea.get_overlapping_bodies()

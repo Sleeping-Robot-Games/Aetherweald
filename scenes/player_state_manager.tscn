@@ -23,6 +23,8 @@ animation_name = "death"
 
 [node name="Hit" type="Node" parent="."]
 script = ExtResource("3_8kuop")
+idle_node = NodePath("../Idle")
+run_node = NodePath("../Run")
 animation_name = "hit"
 
 [node name="Idle" type="Node" parent="."]

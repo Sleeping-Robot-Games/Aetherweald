@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
+@onready var hit_state: BaseState = $PlayerStateManager.get_node('Hit')
+
 @export var speed: float = 400.0
 var hp: int = 10
 var moving: bool = false
 var direction: Vector2 = Vector2(0, -1)
 var direction_string: String = 'up'
-var rolling = false # This is really more for pseudo code right now
+var is_invulnerable = false
 
 func _ready():
 	$PlayerStateManager.init(self)
@@ -17,6 +19,17 @@ func dmg(num):
 	print('player damaged')
 	hp = maxi(0, hp - num)
 	$HpBar.value = hp
+	invulnerability_window()
+	$PlayerStateManager.change_state(hit_state)
+
+func invulnerability_window():
+	is_invulnerable = true
+	$SpriteHolder.modulate.a = 0.5
+	$HitTimer.start()
+
+func _on_hit_timer_timeout():
+	is_invulnerable = false
+	$SpriteHolder.modulate.a = 1.0
 
 func _on_attack_area_body_entered(body):
 	if body.has_method('dmg'):
