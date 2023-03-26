@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpukplrgfg4sk"]
+[gd_scene load_steps=8 format=3 uid="uid://cpukplrgfg4sk"]
 
 [ext_resource type="PackedScene" uid="uid://blkfnc5h6inoj" path="res://scenes/player.tscn" id="1_8nq52"]
 [ext_resource type="Texture2D" uid="uid://bnc6ge01k02mv" path="res://assets/dungeontest.png" id="1_kroj3"]
 [ext_resource type="PackedScene" uid="uid://wt6xpm4filub" path="res://scenes/slime.tscn" id="2_px41y"]
+[ext_resource type="PackedScene" uid="uid://b15qrcv8ors5b" path="res://scenes/slime_b.tscn" id="4_13qqs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5owvh"]
 texture = ExtResource("1_kroj3")
@@ -130,3 +131,6 @@ position = Vector2(182, 219)
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_7mihf")
+
+[node name="SlimeB" parent="." instance=ExtResource("4_13qqs")]
+position = Vector2(803, 247)
