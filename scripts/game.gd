@@ -13,6 +13,5 @@ func _ready():
 
 func spawn_slime():
 	var new_slime = slime_scene.instantiate()
-	print(slime_spawn_positions.pick_random())
 	new_slime.global_position = slime_spawn_positions.pick_random().global_position
 	add_child(new_slime)

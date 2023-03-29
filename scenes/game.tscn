@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpukplrgfg4sk"]
+[gd_scene load_steps=8 format=3 uid="uid://cpukplrgfg4sk"]
 
 [ext_resource type="PackedScene" uid="uid://blkfnc5h6inoj" path="res://scenes/player.tscn" id="1_8nq52"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_23e0n"]
 [ext_resource type="Texture2D" uid="uid://bnc6ge01k02mv" path="res://assets/dungeontest.png" id="1_kroj3"]
+[ext_resource type="PackedScene" uid="uid://wt6xpm4filub" path="res://scenes/slime.tscn" id="4_q3ito"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5owvh"]
 texture = ExtResource("1_kroj3")
@@ -115,6 +116,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 958, 5, 958, 543, 2, 540)])
 
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_23e0n")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -137,3 +139,15 @@ position = Vector2(739, 238)
 
 [node name="SlimeSpawnPos3" type="Marker2D" parent="."]
 position = Vector2(500, 398)
+
+[node name="Slime" parent="." instance=ExtResource("4_q3ito")]
+position = Vector2(246, 358)
+
+[node name="Slime2" parent="." instance=ExtResource("4_q3ito")]
+position = Vector2(290, 129)
+
+[node name="Slime3" parent="." instance=ExtResource("4_q3ito")]
+position = Vector2(595, 139)
+
+[node name="Slime4" parent="." instance=ExtResource("4_q3ito")]
+position = Vector2(729, 379)
