@@ -21,6 +21,8 @@ const YELLOW = Color(1.0, 1.0, 0.0, 1.0)
 const RED = Color(1.0, 0.0, 0.0, 1.0)
 
 func _ready():
+	## TODO: Actually kill off slime and when they die spawn another
+	
 	$AnimationPlayer.play('idle_down')
 	prev_position = global_position
 	hp = max_hp
@@ -30,6 +32,7 @@ func _ready():
 	$Sprite.material = $Sprite.material.duplicate()
 
 func _physics_process(delta):
+	## TODO: See notes in dmg()
 	if state == 'idle':
 		$AnimationPlayer.play('idle_down')
 	
@@ -120,6 +123,8 @@ func end_chase():
 	$Scan.start()
 
 func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
+	## TODO: Make sure hurt animation is prioritized and no animations play until hurt is done
+	## TODO: Make sure the enemy can be dmg'd right away again
 	print('slime damaged: ' + str(num) + ', dir: ' + str(dir) + ', force: ' + str(force))
 	hp = maxi(0, hp - num)
 	$HpBar.value = hp
@@ -131,6 +136,7 @@ func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
 	$FollowTimer.stop()
 	$Scan.stop()
 	$HurtTimer.start()
+	$AnimationPlayer.play('hurt_' + facing)
 
 func _on_chase_area_body_entered(body):
 	if body.name == 'Player':
