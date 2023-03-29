@@ -9564,6 +9564,7 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 0, 0, 1)
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_mask = 0
 script = ExtResource("1_n31ye")
 

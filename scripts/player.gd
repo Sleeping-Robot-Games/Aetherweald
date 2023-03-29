@@ -3,6 +3,9 @@ extends CharacterBody2D
 @onready var hit_state: BaseState = $PlayerStateManager.get_node('Hit')
 
 @export var speed: float = 400.0
+@export var light_knockback_force: float = 200.0
+@export var heavy_knockback_force: float = 300.0
+
 var hp: int = 10
 var moving: bool = false
 var direction: Vector2 = Vector2(0, -1)
@@ -37,8 +40,8 @@ func _on_attack_area_body_entered(body):
 		var damage: int = 1 if 'light' in anim else 3
 		var force: float = 0.0
 		if 'light3' in anim:
-			force = 300.0
+			force = light_knockback_force
 		elif 'heavy' in anim:
-			force = 400.0
+			force = heavy_knockback_force
 		var dir: Vector2 = global_position.direction_to(body.global_position).normalized()
 		body.dmg(damage, dir, force)

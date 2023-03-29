@@ -481,6 +481,7 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 0, 0, 1)
 
 [node name="Slime" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_bun5w")
@@ -513,7 +514,6 @@ collision_layer = 0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseArea"]
-visible = false
 position = Vector2(0, 22)
 shape = SubResource("CircleShape2D_i647y")
 
@@ -525,9 +525,6 @@ monitorable = false
 position = Vector2(0, 22)
 shape = SubResource("CircleShape2D_3lwc2")
 
-[node name="FollowTimer" type="Timer" parent="."]
-wait_time = 0.1
-
 [node name="HitArea" type="Area2D" parent="."]
 collision_layer = 0
 monitorable = false
@@ -535,13 +532,6 @@ monitorable = false
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitArea"]
 position = Vector2(0, 24)
 shape = SubResource("CircleShape2D_w1o3l")
-
-[node name="Scan" type="Timer" parent="."]
-one_shot = true
-
-[node name="HurtTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
 
 [node name="HpBar" type="ProgressBar" parent="."]
 offset_left = 13.0
@@ -558,20 +548,37 @@ rounded = true
 fill_mode = 3
 show_percentage = false
 
+[node name="Scan" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="FollowTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [node name="ChargeWindupTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 0.5
 one_shot = true
 
 [node name="ExclamationTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
+[node name="PatrolTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="ChaseArea" to="." method="_on_chase_area_body_entered"]
 [connection signal="body_exited" from="ChaseArea" to="." method="_on_chase_area_body_exited"]
 [connection signal="body_entered" from="ChargeArea" to="." method="_on_charge_area_body_entered"]
-[connection signal="timeout" from="FollowTimer" to="." method="_on_follow_timer_timeout"]
 [connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]
 [connection signal="timeout" from="Scan" to="." method="_on_scan_timeout"]
+[connection signal="timeout" from="FollowTimer" to="." method="_on_follow_timer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
 [connection signal="timeout" from="ChargeWindupTimer" to="." method="_on_charge_windup_timer_timeout"]
 [connection signal="timeout" from="ExclamationTimer" to="." method="_on_exclamation_timer_timeout"]
+[connection signal="timeout" from="PatrolTimer" to="." method="_on_patrol_timer_timeout"]
