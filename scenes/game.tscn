@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpukplrgfg4sk"]
+[gd_scene load_steps=10 format=3 uid="uid://cpukplrgfg4sk"]
 
 [ext_resource type="PackedScene" uid="uid://blkfnc5h6inoj" path="res://scenes/player.tscn" id="1_8nq52"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_23e0n"]
 [ext_resource type="Texture2D" uid="uid://cvh6lec6gkx6v" path="res://assets/dungeonv1.png" id="3_rtajd"]
 [ext_resource type="PackedScene" uid="uid://wt6xpm4filub" path="res://scenes/slime.tscn" id="4_q3ito"]
+[ext_resource type="PackedScene" uid="uid://quugj8236pot" path="res://scenes/props/rock.tscn" id="5_cynve"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gqo1t"]
 texture = ExtResource("3_rtajd")
@@ -89,8 +90,13 @@ use_texture_padding = false
 9:3/0 = 0
 8:3/0 = 0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_0khap"]
+resource_name = "props"
+scenes/2/scene = ExtResource("5_cynve")
+
 [sub_resource type="TileSet" id="TileSet_pxrws"]
 sources/0 = SubResource("TileSetAtlasSource_gqo1t")
+sources/1 = SubResource("TileSetScenesCollectionSource_0khap")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_7mihf"]
 vertices = PackedVector2Array(0, 0, 958, 5, 958, 543, 2, 540)
@@ -109,10 +115,10 @@ layer_0/tile_data = PackedInt32Array(524292, 393216, 0, 589828, 393216, 1, 52429
 layer_1/name = "Ground Objects"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
-layer_1/y_sort_enabled = false
-layer_1/y_sort_origin = 0
+layer_1/y_sort_enabled = true
+layer_1/y_sort_origin = 1
 layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(720921, 524288, 2, 786457, 524288, 3, 720922, 589824, 2, 786458, 589824, 3, 983065, 524288, 2, 1048601, 524288, 3, 983066, 589824, 2, 1048602, 589824, 3, 786437, 524288, 2, 851973, 524288, 3, 786438, 589824, 2, 851974, 589824, 3, 1048586, 524288, 2, 1114122, 524288, 3, 1048587, 589824, 2, 1114123, 589824, 3, 1572871, 524288, 2, 1638407, 524288, 3, 1572872, 589824, 2, 1638408, 589824, 3, 1179690, 524288, 2, 1245226, 524288, 3, 1179691, 589824, 2, 1245227, 589824, 3, 589867, 524288, 1, 589868, 589824, 1, 1572900, 524288, 1, 1572901, 589824, 1)
+layer_1/tile_data = PackedInt32Array(720921, 524288, 2, 786457, 524288, 3, 720922, 589824, 2, 786458, 589824, 3, 786437, 524288, 2, 851973, 524288, 3, 786438, 589824, 2, 851974, 589824, 3, 1048586, 524288, 2, 1114122, 524288, 3, 1048587, 589824, 2, 1114123, 589824, 3, 1572871, 524288, 2, 1638407, 524288, 3, 1572872, 589824, 2, 1638408, 589824, 3, 1179690, 524288, 2, 1245226, 524288, 3, 1179691, 589824, 2, 1245227, 589824, 3, 589867, 524288, 1, 589868, 589824, 1, 1572900, 524288, 1, 1572901, 589824, 1)
 layer_2/name = "Wall"
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
@@ -124,7 +130,7 @@ layer_3/name = "Wall Objects"
 layer_3/enabled = true
 layer_3/modulate = Color(1, 1, 1, 1)
 layer_3/y_sort_enabled = false
-layer_3/y_sort_origin = 0
+layer_3/y_sort_origin = 1
 layer_3/z_index = 0
 layer_3/tile_data = PackedInt32Array()
 
@@ -145,13 +151,16 @@ position = Vector2(739, 238)
 position = Vector2(500, 398)
 
 [node name="Slime" parent="." instance=ExtResource("4_q3ito")]
-position = Vector2(246, 358)
+position = Vector2(103, 158)
 
 [node name="Slime2" parent="." instance=ExtResource("4_q3ito")]
-position = Vector2(290, 129)
+position = Vector2(141, 158)
 
 [node name="Slime3" parent="." instance=ExtResource("4_q3ito")]
-position = Vector2(595, 139)
+position = Vector2(820, 153)
 
 [node name="Slime4" parent="." instance=ExtResource("4_q3ito")]
-position = Vector2(729, 379)
+position = Vector2(856, 154)
+
+[node name="rock" parent="." instance=ExtResource("5_cynve")]
+position = Vector2(457, 398)

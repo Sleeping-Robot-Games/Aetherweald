@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://quugj8236pot"]
+
+[ext_resource type="Texture2D" uid="uid://cvh6lec6gkx6v" path="res://assets/dungeonv1.png" id="1_kiweq"]
+[ext_resource type="Script" path="res://scripts/rock.gd" id="1_mquc6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y3jve"]
+radius = 16.0
+
+[node name="Rock" type="RigidBody2D"]
+collision_layer = 4
+gravity_scale = 0.0
+script = ExtResource("1_mquc6")
+broken_frame = 4
+hp = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kiweq")
+hframes = 5
+vframes = 5
+frame = 9
+
+[node name="DespawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_y3jve")
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
