@@ -82,7 +82,7 @@ func _physics_process(delta):
 		var charge_distance_traveled = initial_charge_pos.distance_to(global_position)
 		
 		# end charge if close enough to target or if overshot target, and if the minimum charge distance has been met
-		if charge_distance_traveled >= min_charge_distance and (velocity.distance_to(charge_target_pos) < 10 or target_dir.dot(velocity_dir) < 0):
+		if charge_distance_traveled >= min_charge_distance and (global_position.distance_to(charge_target_pos) < 10 or target_dir.dot(velocity_dir) < 0):
 			end_chase()
 
 		# otherwise keep charging
