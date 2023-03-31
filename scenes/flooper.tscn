@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce2q8l7rfu15u"]
+
+[ext_resource type="Texture2D" uid="uid://cbjfp448t72j4" path="res://assets/enemies/turret.png" id="1_vuhlv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s0rb2"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vuhlv")
+hframes = 7
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s0rb2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
