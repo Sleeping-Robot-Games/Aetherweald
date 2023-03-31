@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3wc26n08ngqj"]
+[gd_scene load_steps=7 format=3 uid="uid://b3wc26n08ngqj"]
 
 [ext_resource type="Texture2D" uid="uid://bpwafrrx6wess" path="res://assets/enemies/dummy.png" id="1_n1ikg"]
 [ext_resource type="Script" path="res://scripts/dummy.gd" id="1_yvrd0"]
@@ -9,7 +9,7 @@ height = 26.6667
 
 [sub_resource type="Animation" id="Animation_17tun"]
 resource_name = "hit"
-length = 0.3
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -17,14 +17,30 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [1, 2, 3]
+"values": [0, 1, 2, 3, 0]
+}
+
+[sub_resource type="Animation" id="Animation_goydf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bp5so"]
 _data = {
+"RESET": SubResource("Animation_goydf"),
 "hit": SubResource("Animation_17tun")
 }
 
@@ -37,7 +53,6 @@ script = ExtResource("1_yvrd0")
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_n1ikg")
 hframes = 4
-frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
