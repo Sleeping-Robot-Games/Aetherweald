@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://blkfnc5h6inoj" path="res://scenes/player.tscn" id="1_8nq52"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_23e0n"]
 [ext_resource type="Texture2D" uid="uid://cvh6lec6gkx6v" path="res://assets/dungeonv1.png" id="3_rtajd"]
-[ext_resource type="PackedScene" uid="uid://wt6xpm4filub" path="res://scenes/slime.tscn" id="4_q3ito"]
 [ext_resource type="PackedScene" uid="uid://dwbl6uija4aej" path="res://scenes/props/rock.tscn" id="5_cynve"]
+[ext_resource type="PackedScene" uid="uid://b3wc26n08ngqj" path="res://scenes/dummy.tscn" id="6_m36e5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gqo1t"]
 texture = ExtResource("3_rtajd")
@@ -132,6 +132,7 @@ y_sort_enabled = true
 script = ExtResource("1_23e0n")
 
 [node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
 tile_set = SubResource("TileSet_pxrws")
 format = 2
 layer_0/name = "Ground"
@@ -159,7 +160,7 @@ layer_3/z_index = 0
 layer_3/tile_data = PackedInt32Array()
 
 [node name="Player" parent="." instance=ExtResource("1_8nq52")]
-position = Vector2(490, 189)
+position = Vector2(337, 248)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
@@ -174,17 +175,8 @@ position = Vector2(739, 238)
 [node name="SlimeSpawnPos3" type="Marker2D" parent="."]
 position = Vector2(500, 398)
 
-[node name="Slime" parent="." instance=ExtResource("4_q3ito")]
-position = Vector2(103, 158)
-
-[node name="Slime2" parent="." instance=ExtResource("4_q3ito")]
-position = Vector2(141, 158)
-
-[node name="Slime3" parent="." instance=ExtResource("4_q3ito")]
-position = Vector2(820, 153)
-
-[node name="Slime4" parent="." instance=ExtResource("4_q3ito")]
-position = Vector2(856, 154)
-
 [node name="rock" parent="." instance=ExtResource("5_cynve")]
 position = Vector2(457, 398)
+
+[node name="Dummy" parent="." instance=ExtResource("6_m36e5")]
+position = Vector2(302, 257)

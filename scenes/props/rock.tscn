@@ -16,12 +16,12 @@ loot_table = {
 75: ["stone"]
 }
 
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, 8)
-shape = SubResource("RectangleShape2D_fji6f")
-
-[node name="Sprite2D" parent="." index="2"]
+[node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("1_kiweq")
 hframes = 8
 vframes = 5
 frame = 12
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_fji6f")

@@ -9,7 +9,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	spawn_slime()
+	pass
+	#spawn_slime()
 
 func spawn_slime():
 	var new_slime = slime_scene.instantiate()
