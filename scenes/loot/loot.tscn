@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://m6kw3bvxnme0"]
+
+[ext_resource type="Script" path="res://scripts/loot.gd" id="1_ne3pe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1h502"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lpy4v"]
+size = Vector2(16, 16)
+
+[node name="Loot" type="RigidBody2D"]
+gravity_scale = 5.0
+linear_damp = 2.0
+script = ExtResource("1_ne3pe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1h502")
+disabled = true
+
+[node name="PickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("RectangleShape2D_lpy4v")
+
+[node name="GravityTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
+[connection signal="timeout" from="GravityTimer" to="." method="_on_gravity_timer_timeout"]

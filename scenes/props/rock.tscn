@@ -1,29 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://quugj8236pot"]
+[gd_scene load_steps=4 format=3 uid="uid://dwbl6uija4aej"]
 
 [ext_resource type="Texture2D" uid="uid://cvh6lec6gkx6v" path="res://assets/dungeonv1.png" id="1_kiweq"]
-[ext_resource type="Script" path="res://scripts/rock.gd" id="1_mquc6"]
+[ext_resource type="PackedScene" uid="uid://bbx8c341f8kyq" path="res://scenes/props/prop.tscn" id="1_m0uv7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_y3jve"]
-radius = 16.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fji6f"]
+size = Vector2(14, 14)
 
-[node name="Rock" type="RigidBody2D"]
-collision_layer = 4
-gravity_scale = 0.0
-script = ExtResource("1_mquc6")
+[node name="Rock" instance=ExtResource("1_m0uv7")]
 broken_frame = 4
+is_breakable = true
 hp = 2
+hit_sfx = "rock_hit.ogg"
+break_sfx = "rock_break.ogg"
+loot_table = {
+75: ["stone"]
+}
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_kiweq")
-hframes = 5
-vframes = 5
-frame = 9
-
-[node name="DespawnTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, 8)
-shape = SubResource("CircleShape2D_y3jve")
+shape = SubResource("RectangleShape2D_fji6f")
 
-[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
+[node name="Sprite2D" parent="." index="2"]
+texture = ExtResource("1_kiweq")
+hframes = 8
+vframes = 5
+frame = 12

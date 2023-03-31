@@ -6,12 +6,18 @@ extends CharacterBody2D
 @export var charge_distance: float = 200.0
 @export var max_hp: int = 10
 @export var min_charge_distance: float = 50.0
-
-
 @export var yellow_windup = false
 @export var windup_timeout = 0.75
 
+@onready var level = get_parent()
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
+
+var loot_table: Dictionary = {
+	25: [],
+	50: ['gold'],
+	75: ['gold', 'gold'],
+	100: ['wood', 'wood']
+}
 
 var hp: int
 var target: CharacterBody2D
@@ -23,6 +29,7 @@ var hurt_dir: Vector2
 var hurt_knockback: float
 var prev_position: Vector2
 var initial_charge_pos: Vector2
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 const YELLOW = Color(1.0, 1.0, 0.0, 1.0)
 const RED = Color(1.0, 0.0, 0.0, 1.0)
@@ -202,6 +209,18 @@ func slime_dmg_player_check(body):
 	'roll' in body.get_node('AnimationPlayer').current_animation:
 		body.dmg(1)
 
+func spawn_loot() -> void:
+	rng.randomize()
+	var percentile: int = rng.randi_range(1, 100)
+	for key in loot_table:
+		if percentile <= key:
+			for loot in loot_table[key]:
+				var loot_scene = load('res://scenes/loot/' + loot + '.tscn')
+				var loot_instance = loot_scene.instantiate()
+				loot_instance.global_position = global_position
+				level.call_deferred('add_child', loot_instance)
+			return
+
 func _on_scan_timeout():
 	if state in ['dead', 'charge']:
 		return
@@ -230,6 +249,7 @@ func _on_exclamation_timer_timeout():
 
 func _on_animation_player_animation_finished(anim_name):
 	if 'death' in anim_name:
+		spawn_loot()
 		get_parent().spawn_slime()
 		queue_free()
 

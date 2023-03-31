@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfg2p35wfdcko"]
+
+[ext_resource type="PackedScene" uid="uid://m6kw3bvxnme0" path="res://scenes/loot/loot.tscn" id="1_v5tly"]
+[ext_resource type="Texture2D" uid="uid://2006bjwt5y8f" path="res://assets/loot/stone.png" id="2_uj125"]
+
+[node name="Stone" instance=ExtResource("1_v5tly")]
+type = "stone"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_uj125")
+
+[node name="GravityTimer" parent="." index="3"]
+wait_time = 0.1

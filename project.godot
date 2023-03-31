@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Aetherweald"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="res://scenes/dungeon.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.png"
+
+[autoload]
+
+g="*res://scripts/global.gd"
 
 [display]
 
@@ -81,6 +85,7 @@ roll={
 2d_physics/layer_2="enemy"
 2d_physics/layer_3="prop"
 2d_physics/layer_4="wall"
+2d_physics/layer_5="loot"
 
 [rendering]
 

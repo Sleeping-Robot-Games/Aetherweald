@@ -12,11 +12,25 @@ var direction: Vector2 = Vector2(0, -1)
 var direction_string: String = 'up'
 var is_invulnerable = false
 
+# TODO move to global script?
+var stone = 0
+var gold = 0
+var wood = 0
+
 func _ready():
 	$PlayerStateManager.init(self)
 
 func play_animation(anim_name):
 	$AnimationPlayer.play(anim_name)
+
+func get_loot(type: String, amount: int = 1):
+	# TODO update HUD
+	if type == 'stone':
+		stone += amount
+	elif type == 'gold':
+		gold += amount
+	elif type == 'wood':
+		wood += amount
 
 func dmg(num):
 	print('player damaged')
