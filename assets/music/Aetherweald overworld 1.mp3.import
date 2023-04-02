@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bffq7ikpkpdy1"
+path="res://.godot/imported/Aetherweald overworld 1.mp3-81758aeb42e647340c0dc1fce6c41c2f.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Aetherweald overworld 1.mp3"
+dest_files=["res://.godot/imported/Aetherweald overworld 1.mp3-81758aeb42e647340c0dc1fce6c41c2f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
