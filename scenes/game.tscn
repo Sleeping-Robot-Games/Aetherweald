@@ -339,3 +339,4 @@ position = Vector2(457, 398)
 
 [node name="Dummy" parent="." instance=ExtResource("6_m36e5")]
 position = Vector2(302, 257)
+scale = Vector2(1, 1)
