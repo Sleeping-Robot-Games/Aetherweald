@@ -97,35 +97,13 @@ func paint_walls() -> void:
 			if col == 0 or col == blueprint.size.x + 1:
 				set_cell('wall', Vector2i(col, row), Vector2i(2, 8))
 		# bottom
-		for row in range(blueprint.size.y + 1, blueprint.size.y + 7):
-			if row == blueprint.size.y + 1:
-				if col == 0:
-					set_cell('wall', Vector2i(col, row), Vector2i(2, 22))
-				elif col == blueprint.size.x + 1:
-					set_cell('wall', Vector2i(col, row), Vector2i(10, 22))
-				else:
-					set_cell('wall', Vector2i(col, row), Vector2i(3, 22))
-			elif row == blueprint.size.y + 2:
-				if col == 0:
-					set_cell('wall', Vector2i(col, row), Vector2i(2, 23))
-				elif col == blueprint.size.x + 1:
-					set_cell('wall', Vector2i(col, row), Vector2i(10, 23))
-				else:
-					set_cell('wall', Vector2i(col, row), Vector2i(3, 23))
-			elif row == blueprint.size.y + 6:
-				if col == 0:
-					set_cell('wall', Vector2i(col, row), Vector2i(2, 26))
-				elif col == blueprint.size.x + 1:
-					set_cell('wall', Vector2i(col, row), Vector2i(10, 26))
-				else:
-					set_cell('wall', Vector2i(col, row), Vector2i(3, 26))
-			else:
-				if col == 0:
-					set_cell('wall', Vector2i(col, row), Vector2i(2, 24))
-				elif col == blueprint.size.x + 1:
-					set_cell('wall', Vector2i(col, row), Vector2i(10, 24))
-				else:
-					set_cell('wall', Vector2i(col, row), Vector2i(3, 24))
+		var row = blueprint.size.y + 1
+		if col == 0:
+			set_cell('wall', Vector2i(col, row), Vector2i(2, 22))
+		elif col == blueprint.size.x + 1:
+			set_cell('wall', Vector2i(col, row), Vector2i(10, 22))
+		else:
+			set_cell('wall', Vector2i(col, row), Vector2i(3, 22))
 
 func paint_doors() -> void:
 	pass
