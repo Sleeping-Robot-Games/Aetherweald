@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var slime_scene = preload('res://scenes/slime.tscn')
+@onready var slime_scene = preload('res://scenes/enemies/slime.tscn')
 @onready var slime_spawn_positions = [
 	$SlimeSpawnPos,
 	$SlimeSpawnPos2,

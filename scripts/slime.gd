@@ -166,7 +166,7 @@ func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
 	if state == 'dead':
 		return
 		
-	print('slime damaged: ' + str(num) + ', dir: ' + str(dir) + ', force: ' + str(force))
+	#print('slime damaged: ' + str(num) + ', dir: ' + str(dir) + ', force: ' + str(force))
 
 	hp = maxi(0, hp - num)
 	$HpBar.value = hp
@@ -250,7 +250,7 @@ func _on_exclamation_timer_timeout():
 func _on_animation_player_animation_finished(anim_name):
 	if 'death' in anim_name:
 		spawn_loot()
-		get_parent().spawn_slime()
+		#get_parent().spawn_slime()
 		queue_free()
 
 func _on_patrol_timer_timeout():

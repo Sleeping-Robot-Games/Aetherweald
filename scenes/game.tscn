@@ -250,7 +250,7 @@ script/source = "extends Prop
 [sub_resource type="CircleShape2D" id="CircleShape2D_y3jve"]
 radius = 16.0
 
-[sub_resource type="PackedScene" id="PackedScene_exrtb"]
+[sub_resource type="PackedScene" id="PackedScene_y1bt3"]
 _bundled = {
 "conn_count": 1,
 "conns": PackedInt32Array(2, 0, 25, 24, 2, 0, 0),
@@ -268,7 +268,7 @@ _bundled = {
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_0khap"]
 resource_name = "props"
-scenes/2/scene = SubResource("PackedScene_exrtb")
+scenes/2/scene = SubResource("PackedScene_y1bt3")
 
 [sub_resource type="TileSet" id="TileSet_pxrws"]
 sources/0 = SubResource("TileSetAtlasSource_gqo1t")
