@@ -12,5 +12,3 @@ script = ExtResource("1_aj0ck")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-[node name="SFX" type="AudioStreamPlayer" parent="."]

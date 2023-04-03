@@ -22,15 +22,13 @@ func dmg(num: int, _dir: Vector2 = Vector2.ZERO, _force: float = 0.0) -> void:
 			if broken_frame:
 				$Sprite2D.frame = broken_frame
 			if break_sfx:
-				$SFX.stream = load('res://assets/sfx/' + break_sfx)
-				$SFX.play()
+				g.play_sfx(level, break_sfx)
 			if loot_table.size() > 0:
 				spawn_loot()
 			if is_despawnable:
 				$DespawnTimer.start()
 		elif hit_sfx:
-			$SFX.stream = load('res://assets/sfx/' + hit_sfx)
-			$SFX.play()
+			g.play_sfx(level, hit_sfx)
 
 func spawn_loot() -> void:
 	rng.randomize()

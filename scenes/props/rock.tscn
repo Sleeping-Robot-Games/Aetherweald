@@ -10,8 +10,8 @@ size = Vector2(14, 14)
 broken_frame = 4
 is_breakable = true
 hp = 2
-hit_sfx = "rock_hit.ogg"
-break_sfx = "rock_break.ogg"
+hit_sfx = "rock_hit"
+break_sfx = "rock_break"
 loot_table = {
 75: ["stone"]
 }
