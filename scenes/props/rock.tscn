@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bbx8c341f8kyq" path="res://scenes/props/prop.tscn" id="1_m0uv7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fji6f"]
-size = Vector2(14, 14)
+size = Vector2(23, 18)
 
 [node name="Rock" instance=ExtResource("1_m0uv7")]
 broken_frame = 6
@@ -18,10 +18,10 @@ loot_table = {
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("1_kiweq")
-hframes = 7
-vframes = 14
-frame = 13
+hframes = 11
+vframes = 12
+frame = 21
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, 8)
+position = Vector2(0.5, 6)
 shape = SubResource("RectangleShape2D_fji6f")
