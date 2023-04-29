@@ -19,6 +19,7 @@ var loot_table: Dictionary = {
 	100: ['wood', 'wood']
 }
 
+var spawn: Vector2i
 var hp: int
 var target: CharacterBody2D
 var facing = 'right'
@@ -173,6 +174,8 @@ func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
 	if hp == 0:
 		state = 'dead'
 		$AnimationPlayer.play('death_' + facing)
+		if level.has_method('enemy_died'):
+			level.enemy_died(spawn)
 		return
 		
 	state = 'hurt'

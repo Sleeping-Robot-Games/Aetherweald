@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://djpwau4fqa01y"]
+
+[ext_resource type="PackedScene" uid="uid://bbx8c341f8kyq" path="res://scenes/props/prop.tscn" id="1_td3bi"]
+[ext_resource type="Texture2D" uid="uid://cvh6lec6gkx6v" path="res://assets/dungeonv1.png" id="2_8x2f0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdgx5"]
+size = Vector2(30, 30)
+
+[node name="Stump" instance=ExtResource("1_td3bi")]
+broken_frame = 9
+is_breakable = true
+hp = 2
+hit_sfx = "rock_hit"
+break_sfx = "rock_break"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_8x2f0")
+hframes = 11
+vframes = 12
+frame = 20
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("RectangleShape2D_jdgx5")

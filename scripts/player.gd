@@ -11,6 +11,7 @@ var moving: bool = false
 var direction: Vector2 = Vector2(0, -1)
 var direction_string: String = 'up'
 var is_invulnerable = false
+var current_interactable = null
 
 # TODO move to global script?
 var stone = 0
@@ -19,6 +20,10 @@ var wood = 0
 
 func _ready():
 	$PlayerStateManager.init(self)
+
+func _input(event):
+	if event.is_action_pressed('interact') and current_interactable != null:
+		current_interactable.interact()
 
 func play_animation(anim_name):
 	$AnimationPlayer.play(anim_name)
@@ -33,7 +38,6 @@ func get_loot(type: String, amount: int = 1):
 		wood += amount
 
 func dmg(num):
-	print('player damaged')
 	hp = maxi(0, hp - num)
 	$HpBar.value = hp
 	invulnerability_window()

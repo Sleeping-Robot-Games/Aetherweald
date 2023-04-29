@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbx8c341f8kyq"]
+[gd_scene load_steps=6 format=3 uid="uid://bbx8c341f8kyq"]
 
 [ext_resource type="Script" path="res://scripts/prop.gd" id="1_aj0ck"]
+[ext_resource type="Texture2D" uid="uid://cived8jwh3qxd" path="res://assets/E_001.png" id="2_t4dcy"]
+[ext_resource type="Texture2D" uid="uid://7gqhiqr7d0pm" path="res://assets/E_002.png" id="3_67i13"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ioacp"]
+radius = 46.0
+height = 98.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e2w5i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t4dcy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_67i13")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Prop" type="RigidBody2D"]
 collision_layer = 4
@@ -12,3 +32,16 @@ script = ExtResource("1_aj0ck")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CapsuleShape2D_ioacp")
+
+[node name="InteractionIcon" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -52)
+sprite_frames = SubResource("SpriteFrames_e2w5i")
+
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]

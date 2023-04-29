@@ -1,7 +1,9 @@
 extends StaticBody2D
 
+@onready var level = get_parent()
 @onready var bullet_scene = preload("res://scenes/enemies/flooper_bullet.tscn")
 
+var spawn: Vector2i
 var waiting: bool = false
 var current_target_pos: Vector2
 var dead: bool = false
@@ -61,6 +63,8 @@ func dmg(num: int, dir: Vector2 = Vector2.ZERO, force: float = 0.0) -> void:
 	if hp == 0:
 		dead = true
 		$AnimationPlayer.play('death')
+		if level.has_method('enemy_died'):
+			level.enemy_died(spawn)
 		return
 		
 	waiting = true

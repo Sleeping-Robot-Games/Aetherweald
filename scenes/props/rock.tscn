@@ -7,7 +7,7 @@
 size = Vector2(23, 18)
 
 [node name="Rock" instance=ExtResource("1_m0uv7")]
-broken_frame = 6
+broken_frame = 10
 is_breakable = true
 hp = 2
 hit_sfx = "rock_hit"

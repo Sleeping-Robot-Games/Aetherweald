@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://btbup52kiiwae"]
+
+[ext_resource type="Script" path="res://scripts/dungeon_entrance.gd" id="1_se8tm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcbdo"]
+size = Vector2(112, 32)
+
+[node name="DungeonEntrance" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_se8tm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(56, 16)
+shape = SubResource("RectangleShape2D_vcbdo")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
